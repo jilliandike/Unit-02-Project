@@ -11,7 +11,19 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 const studentsPerPage = 9;
+const searchField = document.querySelector('h2');
 
+searchField.insertAdjacentHTML('afterend', 
+   `
+      <label for="search" class="student-search">
+         <span>Search by name</span>
+         <input id="search" placeholder="Search by name...">
+         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+      </label>
+   `
+);
+
+// searchField.addEventListener()
 
 
 /*
