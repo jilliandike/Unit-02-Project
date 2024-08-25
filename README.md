@@ -1,2 +1,2 @@
 # Unit-02-Project
- Pagination and data filtering
+ The project populates student data to a page, provides pagination buttons, and a search field to filter student data.
