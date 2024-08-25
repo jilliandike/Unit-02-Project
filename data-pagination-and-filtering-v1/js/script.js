@@ -11,19 +11,6 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 const studentsPerPage = 9;
-const searchField = document.querySelector('h2');
-
-searchField.insertAdjacentHTML('afterend', 
-   `
-      <label for="search" class="student-search">
-         <span>Search by name</span>
-         <input id="search" placeholder="Search by name...">
-         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
-      </label>
-   `
-);
-
-// searchField.addEventListener()
 
 
 /*
@@ -71,9 +58,9 @@ function addPagination(list) {
          </li>
       `;
       linkList.insertAdjacentHTML("beforeend", button); 
+      linkList.querySelector("button").classList.add("active"); 
    }
-   linkList.querySelector("button").classList.add("active");   
-
+     
    linkList.addEventListener("click", (e) => {
       const activeButton = linkList.querySelector(".active");
       const buttonClicked = e.target.closest("button");
@@ -91,3 +78,51 @@ function addPagination(list) {
 // Call functions
 showPage(data, 1);
 addPagination(data);
+
+
+//Adding Extra Credit sections
+const header = document.querySelector('header');
+
+header.insertAdjacentHTML('beforeend', 
+   `
+      <label for="search" class="student-search">
+         <span>Search by name</span>
+         <input id="search" placeholder="Search by name...">
+         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+      </label>
+   `
+);
+
+//Variables needed for searching
+const studentSearchInput = document.getElementById('search');
+const studentSearchButton = document.querySelector('button[type=button]');
+const label = studentSearchInput.parentNode;  
+const studentList = document.querySelector(".student-list");
+
+
+function searchStudentData(input) {
+   let newList = [];
+   for (i = 0; i < data.length; i++) {
+      let firstName = data[i].name.first.toLowerCase();
+      let lastName = data[i].name.last.toLowerCase();
+      let fullName = firstName + lastName;
+         
+      if ( fullName.toLowerCase().includes(studentSearchInput.value.toLowerCase())) {
+         newList.push(data[i]);
+      } 
+   }
+   showPage(newList, 1);
+   addPagination(newList);
+   
+   if (newList.length === 0){
+      studentList.innerHTML = `<h3>No results were found.</h3>`;
+   }
+}
+
+label.addEventListener('keyup', () => {
+   searchStudentData(studentSearchInput.value);
+});
+
+studentSearchButton.addEventListener('click', () => {
+   searchStudentData(studentSearchInput.value);
+});
